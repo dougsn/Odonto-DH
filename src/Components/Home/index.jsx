@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import Card from "../Components/Card";
+// import Card from "../Card";
+
+import Card from "../Card"
 
 const Home = () => {
 
@@ -13,7 +15,7 @@ const Home = () => {
     <>
       <h1>Home</h1>
       <div className="card-grid container">
-        <Card />
+        <Card/>
       </div>
     </>
   );
