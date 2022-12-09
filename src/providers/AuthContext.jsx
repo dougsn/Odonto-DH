@@ -9,10 +9,10 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  function fillUsetDataState({ name, token }) {
-    localStorage.setItem("@system_product", JSON.stringify({ name, token }));
+  function fillUsetDataState({ token }) {
+    localStorage.setItem("@system_product", JSON.stringify({ token }));
 
-    setUserData({ ...userData, name: name, token: token });
+    setUserData({ ...userData, token: token });
   }
   useEffect(() => {
     const response = localStorage.getItem("@system_product");
@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
       user = JSON.parse(response);
 
       fillUsetDataState({
-        name: user.name,
         token: user.token,
       });
       console.log(user);

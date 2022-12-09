@@ -1,14 +1,16 @@
 import { useContext } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthContext";
 import api from "../../services/api";
 
 import styles from "./Form.module.css";
 
 const LoginForm = () => {
-  const [name, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setUser] = useState("dentistaAdmin");
+  const [password, setPassword] = useState("admin123");
 
+  const navigate = useNavigate();
   const { fillUsetDataState } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
@@ -31,12 +33,14 @@ const LoginForm = () => {
         password: password,
       });
       fillUsetDataState({
-        // Terminar aqui ***
-        username: response.data.username,
         token: response.data.token,
       });
-    } catch (error) {
-      alert("Não foi possível logar no sistema");
+      console.log(response);
+      navigate("/home");
+
+      
+    } catch (erro) {
+      alert("Não foi possível logar no sistema" + erro);
     }
   }
 
