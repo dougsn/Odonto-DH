@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "../Components/Footer";
-import Home from "../Components/Home";
+import Home from "../pages/Home";
 import Navbar from "../Components/Navbar";
 import Login from "../Components/Login";
-import Detail from "../Components/Detail";
+import Detail from "../pages/Detail";
 
 const AppRoutes = () => {
   return (

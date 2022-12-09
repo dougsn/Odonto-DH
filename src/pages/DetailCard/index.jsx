@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ScheduleFormModal from "../ScheduleFormModal";
+import ScheduleFormModal from "../../Components/ScheduleFormModal";
 import styles from "./DetailCard.module.css";
 
 const DetailCard = () => {
