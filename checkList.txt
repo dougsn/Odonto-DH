@@ -1,0 +1,7 @@
+Página de login: OK
+
+Página de Home: Em progresso
+
+Página de Detalhes do dentista: Pendente 
+
+

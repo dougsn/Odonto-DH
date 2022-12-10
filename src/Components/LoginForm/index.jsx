@@ -1,3 +1,4 @@
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 import { useContext } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +41,7 @@ const LoginForm = () => {
 
       
     } catch (erro) {
-      alert("Não foi possível logar no sistema" + erro);
+      alert("Verifique suas informações novamente");
     }
   }
 
@@ -68,7 +69,7 @@ const LoginForm = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button className="btn btn-primary" type="submit">
+            <button className="btn btn-primary" type="submit" disabled={name.length < 5 ? true : false}>
               Send
             </button>
           </form>
