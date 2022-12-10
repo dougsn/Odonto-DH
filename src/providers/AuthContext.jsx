@@ -10,12 +10,12 @@ const AuthProvider = ({ children }) => {
   const location = useLocation();
 
   function fillUsetDataState({ token }) {
-    localStorage.setItem("@system_product", JSON.stringify({ token }));
+    localStorage.setItem("@system_dentist", JSON.stringify({ token }));
 
     setUserData({ ...userData, token: token });
   }
   useEffect(() => {
-    const response = localStorage.getItem("@system_product");
+    const response = localStorage.getItem("@system_dentist");
 
     let user;
 

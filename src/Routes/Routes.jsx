@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Detail from "../pages/Detail";
 import AuthProvider, { AuthContext } from "../providers/AuthContext";
 import { useContext } from "react";
 import DentistaRouterTemplate from "../template/DentistaRouterTemplate";
+import DetailCard from "../pages/DetailCard";
 
 const PrivateRoute = ({ children }) => {
   const { userData } = useContext(AuthContext);
@@ -30,13 +30,13 @@ const AppRoutes = () => {
               }
             />
           </Route>
-
-          <Route path="/detail" element={<DentistaRouterTemplate />}>
+          {/* dentista?matricula=c3e6cf30-dccc-4e21-935a-8efe9344677e */}
+          <Route path="/dentist" element={<DentistaRouterTemplate />}>
             <Route
-              path=""
+              path=":matricula"
               element={
                 <PrivateRoute>
-                  <Detail />
+                  <DetailCard />
                 </PrivateRoute>
               }
             />

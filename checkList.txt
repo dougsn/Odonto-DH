@@ -1,7 +1,27 @@
-Página de login: OK
+[Página de login: OK]
 
-Página de Home: Em progresso
+[
+Pagina Home: OK
+Esta página deve mostrar uma lista em forma de grade dos dentistas retornados pela API
 
-Página de Detalhes do dentista: Pendente 
+O seguinte deve ser levado em consideração:
+
+Deve ser a página inicial do site. 
+A grade deve mostrar um Card para cada dentista retornado pela API.
+Cada dentista deve conter name e username, juntamente com um link que permite navegar para a página dentist/:id com base no id do dentista. 
+] ** Verificar a necessidade do component Detail **
+
+[Página de Detalhes do dentista: OK ]
 
 
+
+
+[Fazer um botão <Link to=""><Link/> para voltar para a página home]  ** Pendente **
+
+[Fazer o modal puxar as informações dos dentistas / pacientes no select, e fazer a consulta com a data.] ** Pendente **
+
+[Fazer botão de logout e limpar o localStorage com a função] ** Pendente **
+
+[Fazer o darkMode e troca o icone quando for clicado ] ** Pendente **
+
+[Realizar os testes ] ** Pendente **
