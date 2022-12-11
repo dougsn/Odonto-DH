@@ -16,12 +16,12 @@ Cada dentista deve conter name e username, juntamente com um link que permite na
 
 
 
-[Fazer um botão <Link to=""><Link/> para voltar para a página home]  ** Pendente **
+[Fazer um botão <Link to=""><Link/> para voltar para a página home]  ** Ok Parcial **
 
 [Fazer o modal puxar as informações dos dentistas / pacientes no select, e fazer a consulta com a data.] ** Pendente **
 
 [Fazer botão de logout e limpar o localStorage com a função] ** Pendente **
 
-[Fazer o darkMode e troca o icone quando for clicado ] ** Pendente **
+[Fazer o darkMode e troca o icone quando for clicado ] OK
 
 [Realizar os testes ] ** Pendente **
