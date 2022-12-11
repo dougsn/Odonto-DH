@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthContext";
 import api from "../../services/api";
+import { NavBarContext } from "../contexts/NavBarContext";
 
 import styles from "./Form.module.css";
 
@@ -12,6 +13,8 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
   const { fillUsetDataState } = useContext(AuthContext);
+
+  const { contextIsLight } = useContext(NavBarContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,9 +49,7 @@ const LoginForm = () => {
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-      <div className={`text-center card container ${styles.card}`}>
+      <div className={`text-center card container ${contextIsLight ?  styles.card : styles.cardDark}`}>
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
             <input

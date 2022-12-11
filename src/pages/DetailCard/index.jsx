@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import ScheduleFormModal from "../../Components/ScheduleFormModal";
 import api from "../../services/api";
 import styles from "./DetailCard.module.css";
+import { NavBarContext } from "../../Components/contexts/NavBarContext";
 
 const DetailCard = () => {
+  const { contextIsLight } = useContext(NavBarContext);
+
   const { matricula } = useParams();
   const [dentista, setDentista] = useState([]);
 
@@ -39,11 +40,9 @@ const DetailCard = () => {
     //As instruções que estão com {''} precisam ser
     //substituídas com as informações que vem da api
     <>
-      <h1>Detail about Dentist {dentista.nome} </h1>
+      <h1>Detalhes sobre o Dentista {dentista.nome} </h1>
       <section className="card col-sm-12 col-lg-6 container">
-        {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-        <div className={`card-body row`}>
+        <div className={`card-body row ${contextIsLight ? styles.card : styles.cardDark}`}>
           <div className="col-sm-12 col-lg-6">
             <img
               className="card-img-top"
@@ -62,12 +61,10 @@ const DetailCard = () => {
               </li>
             </ul>
             <div className="text-center">
-              {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-              // está em dark mode e deverá utilizado o css correto */}
               <button
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
-                className={`btn btn-light ${styles.button}`}
+                className={contextIsLight ? `btn btn-light ${styles.button}` : `btn btn-dark ${styles.button}`}
               >
                 Marcar consulta
               </button>

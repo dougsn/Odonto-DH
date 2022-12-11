@@ -5,6 +5,7 @@ import AuthProvider, { AuthContext } from "../providers/AuthContext";
 import { useContext } from "react";
 import DentistaRouterTemplate from "../template/DentistaRouterTemplate";
 import DetailCard from "../pages/DetailCard";
+import NavBarProvider  from "../Components/contexts/NavBarContext";
 
 const PrivateRoute = ({ children }) => {
   const { userData } = useContext(AuthContext);
@@ -14,35 +15,37 @@ const PrivateRoute = ({ children }) => {
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/auth" element={<Login />} />
-          <Route path="/login" element={<Login />} />
+      <NavBarProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/auth" element={<Login />} />
+            <Route path="/login" element={<Login />} />
 
-          <Route path="/home" element={<DentistaRouterTemplate />}>
-            <Route
-              path=""
-              element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            />
-          </Route>
-          {/* dentista?matricula=c3e6cf30-dccc-4e21-935a-8efe9344677e */}
-          <Route path="/dentist" element={<DentistaRouterTemplate />}>
-            <Route
-              path=":matricula"
-              element={
-                <PrivateRoute>
-                  <DetailCard />
-                </PrivateRoute>
-              }
-            />
-          </Route>
-        </Routes>
-      </AuthProvider>
+            <Route path="/home" element={<DentistaRouterTemplate />}>
+              <Route
+                path=""
+                element={
+                  <PrivateRoute>
+                    <Home />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+            {/* dentista?matricula=c3e6cf30-dccc-4e21-935a-8efe9344677e */}
+            <Route path="/dentist" element={<DentistaRouterTemplate />}>
+              <Route
+                path=":matricula"
+                element={
+                  <PrivateRoute>
+                    <DetailCard />
+                  </PrivateRoute>
+                }
+              />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </NavBarProvider>
     </BrowserRouter>
   );
 };
