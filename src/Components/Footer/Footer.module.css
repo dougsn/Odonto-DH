@@ -25,6 +25,10 @@
 }
 
 .iconsDark{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
   filter: brightness(0) invert(1);
 }
 

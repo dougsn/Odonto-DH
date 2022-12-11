@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ScheduleForm.module.css";
+import { NavBarContext } from "../contexts/NavBarContext";
 
 const ScheduleForm = () => {
   useEffect(() => {
@@ -15,12 +16,12 @@ const ScheduleForm = () => {
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
   };
 
+  const { contextIsLight } = useContext(NavBarContext);
+
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center container}`
+        className={`text-center container ${contextIsLight ? styles.card : styles.cardDark}`
         }
       >
         <form onSubmit={handleSubmit}>
@@ -62,11 +63,8 @@ const ScheduleForm = () => {
             </div>
           </div>
           <div className={`row ${styles.rowSpacing}`}>
-            {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
             <button
-              className={`btn btn-light ${styles.button
-                }`}
+              className={ contextIsLight ? `btn btn-light ${styles.button}` : `btn btn-dark ${styles.button}`}
               type="submit"
             >
               Schedule
