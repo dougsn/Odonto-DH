@@ -1,30 +1,34 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useContext } from "react";
+// import { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import Card from "../Card";
 
 import Card from "../../Components/Card";
+import { AuthContext } from "../../providers/AuthContext";
 import api from "../../services/api";
 
 const Home = () => {
-  const [dentista, setDentista] = useState([]);
+  // const [dentista, setDentista] = useState([]);
 
-  useEffect(() => {
-    getDentistas();
-    //Nesse useEffect, deverá ser obtido todos os dentistas da API
-    //Armazena-los em um estado para posteriormente fazer um map
-    //Usando o componente <Card />
-  }, []);
+  const { dentista } = useContext(AuthContext);
+  // const { getDentista } = useContext(AuthContext);
 
-  async function getDentistas() {
-    try {
-      const response = await api.get("/dentista");
-      console.log(response.data);
-      setDentista(response.data);
-    } catch (error) {
-      console.log("Error" + error);
-    }
-  }
+  // useEffect(() => {
+  //   getDentistas();
+  //   //Nesse useEffect, deverá ser obtido todos os dentistas da API
+  //   //Armazena-los em um estado para posteriormente fazer um map
+  //   //Usando o componente <Card />
+  // }, []);
+
+  // async function getDentistas() {
+  //   try {
+  //     const response = await api.get("/dentista");
+  //     console.log(response.data);
+  //     setDentista(response.data);
+  //   } catch (error) {
+  //     console.log("Error" + error);
+  //   }
+  // }
 
   return (
     <>

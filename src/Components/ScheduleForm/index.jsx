@@ -1,13 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthContext";
 import styles from "./ScheduleForm.module.css";
 
 const ScheduleForm = () => {
-  useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
-    //e pacientes e carregar os dados em 2 estados diferentes
-  }, []);
+
+  const { paciente } = useContext(AuthContext);
+  const { dentista } = useContext(AuthContext);
+  // const { getPaciente } = useContext(AuthContext);
+  // const { getDentista } = useContext(AuthContext);
+
+  // useEffect(() => {
+  //   getPaciente();
+  // }, []);
+
+  // useEffect(() => {
+  //   getDentista();
+  // }, []);
+
 
   const handleSubmit = (event) => {
+
+    event.preventDefault();
+
     //Nesse handlesubmit você deverá usar o preventDefault,
     //obter os dados do formulário e enviá-los no corpo da requisição 
     //para a rota da api que marca a consulta
@@ -30,10 +44,17 @@ const ScheduleForm = () => {
                 Dentist
               </label>
               <select className="form-select" name="dentist" id="dentist">
-                {/*Aqui deve ser feito um map para listar todos os dentistas*/}
-                <option key={'Matricula do dentista'} value={'Matricula do dentista'}>
-                  {`Nome Sobrenome`}
-                </option>
+                {
+                  dentista.map(
+                    (dentista) => (
+                    
+                      <option key={dentista.matricula} value={dentista.matricula}>
+                        {dentista.nome} {dentista.sobrenome}
+                      </option>
+
+                    )
+                  )
+                }
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
@@ -41,10 +62,17 @@ const ScheduleForm = () => {
                 Patient
               </label>
               <select className="form-select" name="patient" id="patient">
-                {/*Aqui deve ser feito um map para listar todos os pacientes*/}
-                <option key={'Matricula do paciente'} value={'Matricula do paciente'}>
-                  {`Nome Sobrenome`}
-                </option>
+                {/* {
+                  paciente.map(
+                    (p) => ( */}
+                    
+                      <option key={'p.matricula'} value={'p.matricula'}>
+                        {'p.nome'} {'p.sobrenome'}
+                      </option>
+
+                {/* //     )
+                //   )
+                // } */}
               </select>
             </div>
           </div>
