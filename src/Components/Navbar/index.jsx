@@ -1,19 +1,23 @@
 import { useContext, useState } from "react";
 import styles from "./Navbar.module.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavBarContext } from "../contexts/NavBarContext";
+
 
 const Navbar = () => {
 
   const {contextIsLight, setContextIsLight} = useContext(NavBarContext);
   const [isLogado, setIsLogado] = useState(true);
 
+  const navigate = useNavigate();
+  
   function handleMode() {
     setContextIsLight(!contextIsLight);
   };
 
-  function logado(){
-    Navigate("/");
+  function logout(){
+    localStorage.clear();
+    navigate("/");
   }
 
   return (
@@ -51,17 +55,16 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light 
-                <a className="nav-link" href="/login">
-                  Login
-                </a>
                 */}
-                {isLogado ? <Link to="/" className={`nav-link`}>Logout</Link> : ""}
+                {isLogado ? <button onClick={logout} className={contextIsLight ? `btn btn-light ${styles.btnLogout}` : `btn btn-dark ${styles.btnLogout}`}>
+                  Logout 
+                </button> : <Link to="/" className={`nav-link`}>Login</Link>}
               </li>
               <li className={`nav-item`}>
                 <button onClick={handleMode}
-                  className={contextIsLight ? `btn btn-dark${styles.btnStyle}` : `btn btn-light${styles.btnStyle}`}
+                  className={contextIsLight ? `btn btn-dark ${styles.btnStyle}` : `btn btn-light ${styles.btnStyle}`}
                 >
-                  {contextIsLight ? `☀` :`🌙` }
+                  {contextIsLight ? `🌙` : `☀` }
                 </button>
               </li>
             </ul>

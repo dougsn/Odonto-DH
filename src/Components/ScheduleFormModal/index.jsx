@@ -12,7 +12,7 @@ const ScheduleFormModal = () => {
       <div className="modal-dialog">
         <div className={`modal-content ${contextIsLight ? styles.Modal : styles.DarkModal}`}>
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">Selecione o dentista, paciente e a data e hora</h1>
+            <h1 className={`modal-title fs-5 ${contextIsLight ? 'text-dark' : 'text-light'}`} id="exampleModalLabel">Selecione o dentista, paciente e a data e hora</h1>
             <button type="button" className={`btn-close ${contextIsLight ? styles.closeButton : styles.closeButtonDark}`} data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">

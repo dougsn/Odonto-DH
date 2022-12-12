@@ -9,3 +9,11 @@
 .rowSpacing{
   padding-bottom: 1rem;
 }
+
+.formLabel{
+  color: black;
+}
+
+.formLabelDark {
+  color: white;
+}

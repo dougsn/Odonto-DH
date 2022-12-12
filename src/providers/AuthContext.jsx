@@ -10,15 +10,6 @@ const AuthProvider = ({ children }) => {
   const [ dentista, setDentista ] = useState([]);
   const [ paciente, setPaciente ] = useState([]);
 
-
-  useEffect (() => {
-      getDentista();  
-    }, []);
-
-    useEffect (() => {
-      getPaciente();  
-    }, []);
-
     async function getDentista() {
       try {
         const response = await api.get("/dentista");
@@ -31,8 +22,7 @@ const AuthProvider = ({ children }) => {
     async function getPaciente() {
       try {
         const response = await api.get("/paciente");
-        // console.log(response.data);
-        setPaciente(response.data);
+        setPaciente(response.data.body);
       } catch (error) {
         console.log("Error" + error);
       }  
@@ -46,6 +36,11 @@ const AuthProvider = ({ children }) => {
 
     setUserData({ ...userData, token: token });
   }
+
+  function emptyUserData(){
+    setUserData({...userData, token: ""});
+  }
+
   useEffect(() => {
     const response = localStorage.getItem("@system_dentist");
 
@@ -57,15 +52,17 @@ const AuthProvider = ({ children }) => {
       fillUsetDataState({
         token: user.token,
       });
-      console.log(user);
-      // navigate("/products");
+      //console.log(user);
+      getDentista(); 
+      getPaciente();
       navigate(location?.pathname);
+      
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, fillUsetDataState, dentista, paciente, getPaciente, getDentista }}>
+    <AuthContext.Provider value={{ userData, fillUsetDataState, emptyUserData, dentista, paciente, getPaciente, getDentista }}>
       {children}
     </AuthContext.Provider>
   );

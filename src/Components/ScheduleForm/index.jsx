@@ -5,8 +5,8 @@ import { NavBarContext } from "../contexts/NavBarContext";
 
 const ScheduleForm = () => {
 
-  const { paciente } = useContext(AuthContext);
-  const { dentista } = useContext(AuthContext);
+  const { paciente, dentista } = useContext(AuthContext);
+  //const { dentista } = useContext(AuthContext);
   // const { getPaciente } = useContext(AuthContext);
   // const { getDentista } = useContext(AuthContext);
 
@@ -17,8 +17,6 @@ const ScheduleForm = () => {
   // useEffect(() => {
   //   getDentista();
   // }, []);
-
-
   const handleSubmit = (event) => {
 
     event.preventDefault();
@@ -41,8 +39,8 @@ const ScheduleForm = () => {
         <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-sm-12 col-lg-6">
-              <label htmlFor="dentist" className="form-label">
-                Dentist
+              <label htmlFor="dentist" className={contextIsLight ? styles.formLabel : styles.formLabelDark}>
+                Dentista
               </label>
               <select className="form-select" name="dentist" id="dentist">
                 {
@@ -59,28 +57,25 @@ const ScheduleForm = () => {
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">
-              <label htmlFor="patient" className="form-label">
-                Patient
+              <label htmlFor="patient" className={contextIsLight ? styles.formLabel : styles.formLabelDark}>
+                Patiente
               </label>
               <select className="form-select" name="patient" id="patient">
-                {/* {
-                  paciente.map(
-                    (p) => ( */}
-                    
-                      <option key={'p.matricula'} value={'p.matricula'}>
-                        {'p.nome'} {'p.sobrenome'}
+                {
+                  paciente?.map((paciente) => (  
+                      <option key={paciente.matricula} value={paciente.matricula}>
+                        {paciente.nome} {paciente.sobrenome}
                       </option>
-
-                {/* //     )
-                //   )
-                // } */}
+                    ) 
+                  ) 
+                }
               </select>
             </div>
           </div>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-12">
-              <label htmlFor="appointmentDate" className="form-label">
-                Date
+              <label htmlFor="appointmentDate" className={contextIsLight ? styles.formLabel : styles.formLabelDark}>
+                Data
               </label>
               <input
                 className="form-control"

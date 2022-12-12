@@ -16,6 +16,11 @@
 }
 
 .btnStyle{
-  width: 3rem;
+  width: 3em;
+  height: 3rem;
+}
+
+.btnLogout{
+  width: 6rem;
   height: 3rem;
 }

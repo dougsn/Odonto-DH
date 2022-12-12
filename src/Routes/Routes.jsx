@@ -15,8 +15,9 @@ const PrivateRoute = ({ children }) => {
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <NavBarProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <NavBarProvider>
+        
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/auth" element={<Login />} />
@@ -44,8 +45,8 @@ const AppRoutes = () => {
               />
             </Route>
           </Routes>
-        </AuthProvider>
-      </NavBarProvider>
+        </NavBarProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
