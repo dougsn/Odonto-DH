@@ -18,9 +18,11 @@ Cada dentista deve conter name e username, juntamente com um link que permite na
 
 [Fazer um botão <Link to=""><Link/> para voltar para a página home]  ** Ok Parcial **
 
-[Fazer o modal puxar as informações dos dentistas / pacientes no select, e fazer a consulta com a data.] ** Pendente **
+[Fazer o modal puxar as informações dos dentistas / pacientes no select, e fazer a consulta com a data.] ** Parcial **
 
-[Fazer botão de logout e limpar o localStorage com a função] ** Pendente **
+[Fazer botão de logout e limpar o localStorage com a função] Ok
+
+[Colocar o navBar na tela de Login???] ** Pendente **
 
 [Fazer o darkMode e troca o icone quando for clicado ] OK
 
