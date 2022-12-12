@@ -1,14 +1,25 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthContext";
 import styles from "./ScheduleForm.module.css";
 import { NavBarContext } from "../contexts/NavBarContext";
 
 const ScheduleForm = () => {
 
-  const { paciente, dentista } = useContext(AuthContext);
-  //const { dentista } = useContext(AuthContext);
-  // const { getPaciente } = useContext(AuthContext);
-  // const { getDentista } = useContext(AuthContext);
+  const { paciente, dentista, consulta, setConsulta } = useContext(AuthContext);
+  const [ agenda, setAgenda ] = useState({
+    paciente,
+    dentista, 
+    dataConsulta: "12-04-2022"});
+  // console.log(agenda);
+
+  // const [ dataConsulta, setConsulta ] = useState([]);
+
+  async function setDentist(e) {
+    console.log(e);
+  }
+
+
+
 
   // useEffect(() => {
   //   getPaciente();
@@ -20,6 +31,7 @@ const ScheduleForm = () => {
   const handleSubmit = (event) => {
 
     event.preventDefault();
+    console.log(agenda);
 
     //Nesse handlesubmit você deverá usar o preventDefault,
     //obter os dados do formulário e enviá-los no corpo da requisição 
@@ -42,7 +54,10 @@ const ScheduleForm = () => {
               <label htmlFor="dentist" className={contextIsLight ? styles.formLabel : styles.formLabelDark}>
                 Dentista
               </label>
-              <select className="form-select" name="dentist" id="dentist">
+              <select 
+                // value = {agenda.dentista}
+                onChange={(e)=>{setDentist(e.target.value)}}
+                className="form-select" name="dentist" id="dentist">
                 {
                   dentista.map(
                     (dentista) => (
@@ -60,7 +75,10 @@ const ScheduleForm = () => {
               <label htmlFor="patient" className={contextIsLight ? styles.formLabel : styles.formLabelDark}>
                 Patiente
               </label>
-              <select className="form-select" name="patient" id="patient">
+              <select 
+                // value = {agenda.paciente}
+                onChange={((event)=>setAgenda(...agenda, {paciente:event.target.value}))}
+                className="form-select" name="patient" id="patient">
                 {
                   paciente?.map((paciente) => (  
                       <option key={paciente.matricula} value={paciente.matricula}>
@@ -78,6 +96,8 @@ const ScheduleForm = () => {
                 Data
               </label>
               <input
+                // value={agenda.dataConsulta}
+                onChange={((event)=>setAgenda(...agenda, {dataConsulta:event.target.value}))}
                 className="form-control"
                 id="appointmentDate"
                 name="appointmentDate"
