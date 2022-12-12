@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="container">
             <div className={`row`}>
               <div className="col-sm-12 col-lg-6">
-                <img className={`${styles.dhLogo}`} src="/images/DH.png" alt='DH-logo' />
+                <img className={contextIsLight ? styles.dhLogo : styles.DhLogoiconsDark} src="/images/DH.png" alt='DH-logo' />
               </div>
               <div className={`col-sm-12 col-lg-6 ${contextIsLight ? styles.icons : styles.iconsDark}`}>
                 <img src="/images/ico-facebook.png" alt="ícone do facebook" className={styles.icon} />

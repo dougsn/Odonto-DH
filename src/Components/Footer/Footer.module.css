@@ -40,3 +40,8 @@
   max-width: 2rem;
   height: auto;
 }
+
+.DhLogoiconsDark {
+  max-width: 50%;
+  filter: brightness(0) invert(1);
+}
