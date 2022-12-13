@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import api from "../services/api"
+import api from "../services/api";
 
 export const AuthContext = createContext({});
 
@@ -19,15 +19,25 @@ const AuthProvider = ({ children }) => {
         console.log("Error" + error);
       }  
     }
+  }
 
-    async function getPaciente() {
-      try {
-        const response = await api.get("/paciente");
-        setPaciente(response.data.body);
-      } catch (error) {
-        console.log("Error" + error);
-      }  
+  async function getDentista() {
+    try {
+      const response = await api.get("/dentista");
+      setDentista(response.data);
+    } catch (error) {
+      console.log("Error" + error);
     }
+  }
+
+  async function getPaciente() {
+    try {
+      const response = await api.get("/paciente");
+      setPaciente(response.data.body);
+    } catch (error) {
+      console.log("Error" + error);
+    }
+  }
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,7 +66,7 @@ const AuthProvider = ({ children }) => {
         token: user.token,
       });
       //console.log(user);
-      getDentista(); 
+      getDentista();
       getPaciente();
       setIsLogado(true);
       navigate(location?.pathname);
