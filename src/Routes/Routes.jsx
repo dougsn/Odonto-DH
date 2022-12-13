@@ -5,7 +5,6 @@ import AuthProvider, { AuthContext } from "../providers/AuthContext";
 import { useContext } from "react";
 import DentistaRouterTemplate from "../template/DentistaRouterTemplate";
 import DetailCard from "../pages/DetailCard";
-import NavBarProvider  from "../Components/contexts/NavBarContext";
 
 const PrivateRoute = ({ children }) => {
   const { userData } = useContext(AuthContext);
@@ -16,7 +15,6 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <NavBarProvider>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/auth" element={<Login />} />
@@ -44,7 +42,6 @@ const AppRoutes = () => {
               />
             </Route>
           </Routes>
-        </NavBarProvider>
       </AuthProvider>
     </BrowserRouter>
   );

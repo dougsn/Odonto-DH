@@ -1,6 +1,5 @@
 import LoginForm from "../../Components/LoginForm";
 import Navbar from "../../Components/Navbar";
-import NavBarProvider from "../../Components/contexts/NavBarContext";
 import { AuthContext } from "../../providers/AuthContext";
 import { useContext, useEffect } from "react";
 
@@ -13,11 +12,11 @@ const Login = () => {
   },[]);
 
   return (
-      <NavBarProvider>
+    <>
         <Navbar />
-        <h1>Login</h1>
-        <LoginForm />
-      </NavBarProvider>
+          <h1>Login</h1>
+          <LoginForm />
+     </>
   );
 };
 

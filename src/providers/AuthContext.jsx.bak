@@ -20,7 +20,18 @@ const AuthProvider = ({ children }) => {
       console.log("Error: " + error);
     }
   }
-   
+  
+
+    async function getDentista() {
+      try {
+        const response = await api.get("/dentista");
+        setDentista(response.data);
+      } catch (error) {
+        console.log("Error" + error);
+      }  
+    }
+  }
+
   async function getDentista() {
     try {
       const response = await api.get("/dentista");
@@ -77,18 +88,19 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, 
-      fillUsetDataState, 
-      emptyUserData, 
-      dentista, 
-      paciente, 
-      getPaciente, 
-      getDentista,
-      consulta,
-      getConsulta,
-      setConsulta, 
-      isLogado, 
-      setIsLogado }}>
+    <AuthContext.Provider 
+    value={{ userData, 
+    		 fillUsetDataState, 
+    		 emptyUserData, 
+    		 dentista, 
+    		 paciente, 
+    		 getPaciente, 
+    		 getDentista,
+    		 consulta,
+    		 getConsulta,
+    		 setConsulta, 
+             isLogado, 
+             setIsLogado }}>
       {children}
     </AuthContext.Provider>
   );
