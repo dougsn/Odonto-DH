@@ -1,13 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styles from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { NavBarContext } from "../contexts/NavBarContext";
+import { AuthContext } from "../../providers/AuthContext";
 
 
 const Navbar = () => {
 
   const {contextIsLight, setContextIsLight} = useContext(NavBarContext);
-  const [isLogado, setIsLogado] = useState(true);
+  const { isLogado } = useContext(AuthContext);
 
   const navigate = useNavigate();
   
@@ -17,7 +18,7 @@ const Navbar = () => {
 
   function logout(){
     localStorage.clear();
-    navigate("/");
+    navigate("/Login");
   }
 
   return (
@@ -49,13 +50,6 @@ const Navbar = () => {
                 <Link to="/home" className={`nav-link`}>Home</Link>
               </li>
               <li className={`nav-item ${styles.navBarLink}`}>
-                {/* Se o usuário estiver logado, deverá aparecer um botão de logout
-                que vai apagar o token do localstorage.
-                Se o usuário estiver deslogado, um link fará um redirecionamento, com react-router,
-                ao formulário de login
-                O botão de logout deverá ser testado darkmode
-                se sim, btn-dark, se não, btn-light 
-                */}
                 {isLogado ? <button onClick={logout} className={contextIsLight ? `btn btn-light ${styles.btnLogout}` : `btn btn-dark ${styles.btnLogout}`}>
                   Logout 
                 </button> : <Link to="/" className={`nav-link`}>Login</Link>}

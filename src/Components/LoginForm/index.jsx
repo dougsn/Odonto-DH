@@ -12,8 +12,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState("admin123");
 
   const navigate = useNavigate();
-  const { fillUsetDataState } = useContext(AuthContext);
-
+  const { fillUsetDataState, setIsLogado } = useContext(AuthContext);
   const { contextIsLight } = useContext(NavBarContext);
 
   const handleSubmit = (e) => {
@@ -39,6 +38,7 @@ const LoginForm = () => {
         token: response.data.token,
       });
       console.log(response);
+      setIsLogado(true);
       navigate("/home");
 
       
@@ -49,7 +49,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className={`text-center card container ${contextIsLight ?  styles.card : styles.cardDark}`}>
+      <div className={`text-center container ${contextIsLight ? styles.card: styles.cardDark}`}>
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
             <input

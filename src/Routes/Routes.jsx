@@ -17,7 +17,6 @@ const AppRoutes = () => {
     <BrowserRouter>
       <AuthProvider>
         <NavBarProvider>
-        
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/auth" element={<Login />} />

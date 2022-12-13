@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect, useContext } from "react";
+import { useState, createContext} from "react";
 
 export const NavBarContext = createContext();
 

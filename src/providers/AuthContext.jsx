@@ -6,9 +6,10 @@ import api from "../services/api"
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-  const [ userData, setUserData ] = useState({});
+  const [ userData, setUserData ] = useState({token: ""});
   const [ dentista, setDentista ] = useState([]);
   const [ paciente, setPaciente ] = useState([]);
+  const [ isLogado, setIsLogado] = useState(false);
 
     async function getDentista() {
       try {
@@ -35,10 +36,12 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("@system_dentist", JSON.stringify({ token }));
 
     setUserData({ ...userData, token: token });
+    console.log(userData.token);
   }
 
   function emptyUserData(){
     setUserData({...userData, token: ""});
+    setIsLogado(false);
   }
 
   useEffect(() => {
@@ -55,14 +58,15 @@ const AuthProvider = ({ children }) => {
       //console.log(user);
       getDentista(); 
       getPaciente();
+      setIsLogado(true);
       navigate(location?.pathname);
       
-    }
+    } 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, fillUsetDataState, emptyUserData, dentista, paciente, getPaciente, getDentista }}>
+    <AuthContext.Provider value={{ userData, fillUsetDataState, emptyUserData, dentista, paciente, getPaciente, getDentista, isLogado, setIsLogado }}>
       {children}
     </AuthContext.Provider>
   );
