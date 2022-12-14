@@ -2,6 +2,7 @@ import LoginForm from "../../Components/LoginForm";
 import Navbar from "../../Components/Navbar";
 import { AuthContext } from "../../providers/AuthContext";
 import { useContext, useEffect } from "react";
+import style from "./Login.module.css";
 
 const Login = () => {
 
@@ -12,11 +13,11 @@ const Login = () => {
   },[]);
 
   return (
-    <>
+    <div className={style.loginContainer}>
         <Navbar />
           <h1>Login</h1>
           <LoginForm />
-     </>
+     </div>
   );
 };
 

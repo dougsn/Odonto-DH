@@ -1,15 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import api from "../services/api";
 
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-  const [ userData, setUserData ] = useState({token: ""});
-  const [ dentista, setDentista ] = useState([]);
-  const [ paciente, setPaciente ] = useState([]);
-  const [ isLogado, setIsLogado] = useState(false);
+  const [userData, setUserData] = useState({ token: "" });
+  const [dentista, setDentista] = useState([]);
+  const [paciente, setPaciente] = useState([]);
+  const [isLogado, setIsLogado] = useState(false);
   const [consulta, setConsulta] = useState([]);
 
   async function getConsulta() {
@@ -17,16 +18,16 @@ const AuthProvider = ({ children }) => {
       const response = await api.get("/consulta");
       setConsulta(response.data);
     } catch (error) {
-      console.log("Error: " + error);
+      toast.error("Error: " + error);
     }
   }
-   
+
   async function getDentista() {
     try {
       const response = await api.get("/dentista");
       setDentista(response.data);
     } catch (error) {
-      console.log("Error" + error);
+      toast.error("Error" + error);
     }
   }
 
@@ -35,7 +36,7 @@ const AuthProvider = ({ children }) => {
       const response = await api.get("/paciente");
       setPaciente(response.data.body);
     } catch (error) {
-      console.log("Error" + error);
+      toast.error("Error" + error);
     }
   }
 
@@ -46,11 +47,10 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("@system_dentist", JSON.stringify({ token }));
 
     setUserData({ ...userData, token: token });
-    console.log(userData.token);
   }
 
-  function emptyUserData(){
-    setUserData({...userData, token: ""});
+  function emptyUserData() {
+    setUserData({ ...userData, token: "" });
     setIsLogado(false);
   }
 
@@ -71,24 +71,27 @@ const AuthProvider = ({ children }) => {
       getConsulta();
       setIsLogado(true);
       navigate(location?.pathname);
-      
-    } 
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, 
-      fillUsetDataState, 
-      emptyUserData, 
-      dentista, 
-      paciente, 
-      getPaciente, 
-      getDentista,
-      consulta,
-      getConsulta,
-      setConsulta, 
-      isLogado, 
-      setIsLogado }}>
+    <AuthContext.Provider
+      value={{
+        userData,
+        fillUsetDataState,
+        emptyUserData,
+        dentista,
+        paciente,
+        getPaciente,
+        getDentista,
+        consulta,
+        getConsulta,
+        setConsulta,
+        isLogado,
+        setIsLogado,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

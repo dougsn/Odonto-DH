@@ -2,8 +2,7 @@ import styles from "./Card.module.css";
 import { useContext } from "react";
 import { NavBarContext } from "../contexts/NavBarContext";
 
-const Card = ({ nome, sobrenome, usuario }) => {
-
+const Card = ({ nome, sobrenome }) => {
   const { contextIsLight } = useContext(NavBarContext);
 
   return (
@@ -15,9 +14,11 @@ const Card = ({ nome, sobrenome, usuario }) => {
           alt="doctor placeholder"
         />
         <div className={`card-body ${styles.CardBody}`}>
-          {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
-          que vem da API */}
-          <h5 className={`card-title ${contextIsLight ? styles.title : styles.titleDark}`}>
+          <h5
+            className={`card-title ${
+              contextIsLight ? styles.title : styles.titleDark
+            }`}
+          >
             {" "}
             {nome} {sobrenome}
           </h5>

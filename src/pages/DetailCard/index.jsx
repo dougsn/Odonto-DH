@@ -4,6 +4,7 @@ import ScheduleFormModal from "../../Components/ScheduleFormModal";
 import api from "../../services/api";
 import styles from "./DetailCard.module.css";
 import { NavBarContext } from "../../Components/contexts/NavBarContext";
+import { ToastContainer, toast } from "react-toastify";
 
 const DetailCard = () => {
   const { contextIsLight } = useContext(NavBarContext);
@@ -20,29 +21,29 @@ const DetailCard = () => {
 
       usuario.push(dentista.usuario);
     } catch (error) {
-      alert("Error" + error);
+      toast.error("Error" + error);
     }
   }
 
   useEffect(() => {
     getDentistaById();
-
-    //Nesse useEffect, você vai fazer um fetch na api passando o
-    //id do dentista que está vindo do react-router e carregar os dados em algum estado
   }, []);
 
   let name = "";
 
- for (const key in dentista) { // Pegando o username, dentro do objeto dentista.
-  name = dentista[key].username;
- }  
+  for (const key in dentista) {
+    // Pegando o username, dentro do objeto dentista.
+    name = dentista[key].username;
+  }
   return (
-    //As instruções que estão com {''} precisam ser
-    //substituídas com as informações que vem da api
     <>
       <h1>Detalhes sobre o Dentista {dentista.nome} </h1>
       <section className="card col-sm-12 col-lg-6 container">
-        <div className={`card-body row ${contextIsLight ? styles.card : styles.cardDark}`}>
+        <div
+          className={`card-body row ${
+            contextIsLight ? styles.card : styles.cardDark
+          }`}
+        >
           <div className="col-sm-12 col-lg-6">
             <img
               className="card-img-top"
@@ -56,15 +57,17 @@ const DetailCard = () => {
               <li className="list-group-item">
                 Sobrenome: {dentista.sobrenome}
               </li>
-              <li className="list-group-item">
-                Usuário: {name}
-              </li>
+              <li className="list-group-item">Usuário: {name}</li>
             </ul>
             <div className="text-center">
               <button
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
-                className={contextIsLight ? `btn btn-light ${styles.button}` : `btn btn-dark ${styles.button}`}
+                className={
+                  contextIsLight
+                    ? `btn btn-light ${styles.button}`
+                    : `btn btn-dark ${styles.button}`
+                }
               >
                 Marcar consulta
               </button>
@@ -73,6 +76,7 @@ const DetailCard = () => {
         </div>
       </section>
       <ScheduleFormModal />
+      <ToastContainer />
     </>
   );
 };
