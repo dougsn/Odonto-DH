@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { ToastContainer, toast, Zoom } from "react-toastify";
 import { AuthContext } from "../../providers/AuthContext";
 import styles from "./ScheduleForm.module.css";
 import { NavBarContext } from "../contexts/NavBarContext";
 import api from "../../services/api";
 
 const ScheduleForm = () => {
+<<<<<<< HEAD
   const { paciente, dentista, consulta, setConsulta } = useContext(AuthContext);
   const [agenda, setAgenda] = useState({
     paciente,
@@ -24,10 +26,11 @@ const ScheduleForm = () => {
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
   };
+=======
+  const { paciente, dentista, userData } = useContext(AuthContext);
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
 
   async function postConsulta(data) {
-    console.log(data);
-
     const postData = JSON.stringify({
       paciente: {
         matricula: data.patient,
@@ -37,6 +40,7 @@ const ScheduleForm = () => {
       },
       dataHoraAgendamento: data.appointmentDate,
     });
+<<<<<<< HEAD
     
     const headers = {
       headers: {
@@ -45,10 +49,20 @@ const ScheduleForm = () => {
         'Accept': '*/*',
       }
     }
+=======
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+    };
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
 
     try {
-      const res = await api.post("/consulta", postData, headers);
+      await api.post("/consulta", postData, headers);
 
+<<<<<<< HEAD
       const result = {
         status: res.status + "-" + res.statusText,
         headers: res.headers,
@@ -58,8 +72,18 @@ const ScheduleForm = () => {
       setPostResult(fortmatResponse(result));
       console.log(postResult);
       alert("Consulta agendada!")
+=======
+      toast("Consulta marcada com sucesso", {
+        type: "success",
+        autoClose: 2000,
+        transition: Zoom,
+      });
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
     } catch (error) {
-      alert("Erro " + error.response?.data || error);
+      toast.error("Erro " + error.response?.data || error, {
+        autoClose: 2000,
+        transition: Zoom,
+      });
     }
   }
 
@@ -68,11 +92,14 @@ const ScheduleForm = () => {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     postConsulta(data);
+<<<<<<< HEAD
     //Nesse handlesubmit você deverá usar o preventDefault,
     //obter os dados do formulário e enviá-los no corpo da requisição
     //para a rota da api que marca a consulta
     //lembre-se que essa rota precisa de um Bearer Token para funcionar.
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+=======
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
   };
 
   const { contextIsLight } = useContext(NavBarContext);
@@ -95,15 +122,7 @@ const ScheduleForm = () => {
               >
                 Dentista
               </label>
-              <select
-                value={dentist.matricula}
-                onChange={(e) => {
-                  setDentist(e.target.value);
-                }}
-                className="form-select"
-                name="dentist"
-                id="dentist"
-              >
+              <select className="form-select" name="dentist" id="dentist">
                 {dentista.map((dentista) => (
                   <option key={dentista.matricula} value={dentista.matricula}>
                     {dentista.nome} {dentista.sobrenome}
@@ -120,13 +139,7 @@ const ScheduleForm = () => {
               >
                 Patiente
               </label>
-              <select
-                value={pacient.matricula}
-                onChange={(event) => setPacient(event.target.value)}
-                className="form-select"
-                name="patient"
-                id="patient"
-              >
+              <select className="form-select" name="patient" id="patient">
                 {paciente?.map((paciente) => (
                   <option key={paciente.matricula} value={paciente.matricula}>
                     {paciente.nome} {paciente.sobrenome}
@@ -146,8 +159,6 @@ const ScheduleForm = () => {
                 Data
               </label>
               <input
-                value={birthdate}
-                onChange={(event) => setBirthdate(event.target.value)}
                 className="form-control"
                 id="appointmentDate"
                 name="appointmentDate"
@@ -168,6 +179,7 @@ const ScheduleForm = () => {
             </button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </>
   );
