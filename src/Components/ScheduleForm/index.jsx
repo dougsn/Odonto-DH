@@ -27,6 +27,12 @@ const ScheduleForm = () => {
   const [dentistData, setDentistData] = useState([]);
   const [pacientData, setPacientData] = useState([]);
 
+  const [postResult, setPostResult] = useState(null);
+
+  const fortmatResponse = (res) => {
+    return JSON.stringify(res, null, 2);
+  };
+
   // async function setDentist(e) {
   //   console.log(e);
   // }
@@ -51,57 +57,60 @@ const ScheduleForm = () => {
     }
   }
 
-  async function postConsulta() {
-    try {
-      await api.post("/consulta", {
-      headers: {
-        Authorization: `Bearer ${userData.token}`,
+
+
+  async function postConsulta(data) {
+    console.log(data);
+
+    const postData = JSON.stringify({
+      paciente: {
+        matricula: data.patient,
       },
-        paciente: {
-          nome: pacientData.nome,
-          sobrenome: pacientData.sobrenome,
-          matricula: pacientData.matricula,
-          usuario: {
-            username: pacientData.usuario.username,
-          },
-          endereco: {
-            id: pacientData.id,
-            logradouro: pacientData.logradouro,
-            numero: pacientData.numero,
-            complemento: pacientData.complemento,
-            bairro: pacientData.bairro,
-            municipio: pacientData.municipio,
-            estado: pacientData.estado,
-            cep: pacientData.cep,
-            pais: pacientData.pais,
-          },
-          dataDeCadastro: pacientData.dataDeCadastro,
-        },
-        dentista: {
-          nome: dentistData.nome,
-          sobrenome: dentistData.sobrenome,
-          matricula: dentistData.matricula,
-          usuario: {
-            username: dentistData.usuario.username,
-          },
-          dataHoraAgendamento: birthdate,
-        }
-      });
+      dentista: {
+        matricula: data.dentist,
+      },
+      dataHoraAgendamento: data.appointmentDate,
+    });
+    //console.log(postData);
+    
+    const headers = {
+      headers: {
+        'Authorization': `Bearer ${userData.token}`,
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+      }
+    }
+   // console.log(headers);
+
+    try {
+      const res = await api.post("/consulta", postData, headers);
+
+      const result = {
+        status: res.status + "-" + res.statusText,
+        headers: res.headers,
+        data: res.data,
+      };
+
+      setPostResult(fortmatResponse(result));
+      console.log(postResult);
     } catch (error) {
-      alert("Erro " + error);
+      alert("Erro " + error.response?.data || error);
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    getDentistaByID(dentist); // Salvando o objeto DENTISTA selecionado em dentistData
-    getPacienteById(pacient); // Salvando o objeto PATIENTE selecionado em dentistData
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    postConsulta(data);
+    //getDentistaByID(dentist); // Salvando o objeto DENTISTA selecionado em dentistData
+    //getPacienteById(pacient); // Salvando o objeto PATIENTE selecionado em dentistData
 
-    postConsulta();
+    
 
-    console.log(dentistData);
-    console.log(pacientData);
-    console.log(userData.token);
+    //console.log(dentistData);
+    //console.log(pacientData);
+    //console.log(userData.token);
 
     //Nesse handlesubmit você deverá usar o preventDefault,
     //obter os dados do formulário e enviá-los no corpo da requisição
@@ -131,7 +140,7 @@ const ScheduleForm = () => {
                 Dentista
               </label>
               <select
-                // value={dentist.matricula}
+                value={dentist.matricula}
                 onChange={(e) => {
                   setDentist(e.target.value);
                 }}
@@ -156,7 +165,7 @@ const ScheduleForm = () => {
                 Patiente
               </label>
               <select
-                // value={pacient.matricula}
+                value={pacient.matricula}
                 onChange={(event) => setPacient(event.target.value)}
                 className="form-select"
                 name="patient"
