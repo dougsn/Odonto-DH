@@ -13,51 +13,17 @@ const ScheduleForm = () => {
   });
 
   const { userData } = useContext(AuthContext);
-  // console.log(agenda);
-
-  // const [ dataConsulta, setConsulta ] = useState([]);
-
   //Estados para pegar as matriculas
   const [dentist, setDentist] = useState([]);
   const [pacient, setPacient] = useState([]);
   const [birthdate, setBirthdate] = useState("");
 
   // Estados para preencher com a informações das matriculas
-
-  const [dentistData, setDentistData] = useState([]);
-  const [pacientData, setPacientData] = useState([]);
-
   const [postResult, setPostResult] = useState(null);
 
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
   };
-
-  // async function setDentist(e) {
-  //   console.log(e);
-  // }
-
-  async function getDentistaByID(matricula) {
-    // Testando busca de dentista por matricula, para filtrar na post da consulta
-    try {
-      const response = await api.get(`dentista?matricula=${matricula}`);
-      setDentistData(response.data);
-    } catch (error) {
-      console.log("Error: " + error);
-    }
-  }
-
-  async function getPacienteById(matricula) {
-    // Testando busca de dentista por matricula, para filtrar na post da consulta
-    try {
-      const response = await api.get(`paciente?matricula=${matricula}`);
-      setPacientData(response.data.body);
-    } catch (error) {
-      console.log("Error: " + error);
-    }
-  }
-
-
 
   async function postConsulta(data) {
     console.log(data);
@@ -71,7 +37,6 @@ const ScheduleForm = () => {
       },
       dataHoraAgendamento: data.appointmentDate,
     });
-    //console.log(postData);
     
     const headers = {
       headers: {
@@ -80,7 +45,6 @@ const ScheduleForm = () => {
         'Accept': '*/*',
       }
     }
-   // console.log(headers);
 
     try {
       const res = await api.post("/consulta", postData, headers);
@@ -93,6 +57,7 @@ const ScheduleForm = () => {
 
       setPostResult(fortmatResponse(result));
       console.log(postResult);
+      alert("Consulta agendada!")
     } catch (error) {
       alert("Erro " + error.response?.data || error);
     }
@@ -103,15 +68,6 @@ const ScheduleForm = () => {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     postConsulta(data);
-    //getDentistaByID(dentist); // Salvando o objeto DENTISTA selecionado em dentistData
-    //getPacienteById(pacient); // Salvando o objeto PATIENTE selecionado em dentistData
-
-    
-
-    //console.log(dentistData);
-    //console.log(pacientData);
-    //console.log(userData.token);
-
     //Nesse handlesubmit você deverá usar o preventDefault,
     //obter os dados do formulário e enviá-los no corpo da requisição
     //para a rota da api que marca a consulta

@@ -55,7 +55,7 @@ const Navbar = () => {
                 </button> : <Link to="/" className={`nav-link`}>Login</Link>}
               </li>
               <li className={`nav-item`}>
-                <button onClick={handleMode}
+                <button onClick={handleMode} data-testID="navbar"
                   className={contextIsLight ? `btn btn-dark ${styles.btnStyle}` : `btn btn-light ${styles.btnStyle}`}
                 >
                   {contextIsLight ? `🌙` : `☀` }
