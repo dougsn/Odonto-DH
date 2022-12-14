@@ -1,0 +1,188 @@
+import { useContext } from "react";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+import { AuthContext } from "../../providers/AuthContext";
+import styles from "./ScheduleForm.module.css";
+import { NavBarContext } from "../contexts/NavBarContext";
+import api from "../../services/api";
+
+const ScheduleForm = () => {
+<<<<<<< HEAD
+  const { paciente, dentista, consulta, setConsulta } = useContext(AuthContext);
+  const [agenda, setAgenda] = useState({
+    paciente,
+    dentista,
+    dataConsulta: "12-04-2022",
+  });
+
+  const { userData } = useContext(AuthContext);
+  //Estados para pegar as matriculas
+  const [dentist, setDentist] = useState([]);
+  const [pacient, setPacient] = useState([]);
+  const [birthdate, setBirthdate] = useState("");
+
+  // Estados para preencher com a informações das matriculas
+  const [postResult, setPostResult] = useState(null);
+
+  const fortmatResponse = (res) => {
+    return JSON.stringify(res, null, 2);
+  };
+=======
+  const { paciente, dentista, userData } = useContext(AuthContext);
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
+
+  async function postConsulta(data) {
+    const postData = JSON.stringify({
+      paciente: {
+        matricula: data.patient,
+      },
+      dentista: {
+        matricula: data.dentist,
+      },
+      dataHoraAgendamento: data.appointmentDate,
+    });
+<<<<<<< HEAD
+    
+    const headers = {
+      headers: {
+        'Authorization': `Bearer ${userData.token}`,
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+      }
+    }
+=======
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+    };
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
+
+    try {
+      await api.post("/consulta", postData, headers);
+
+<<<<<<< HEAD
+      const result = {
+        status: res.status + "-" + res.statusText,
+        headers: res.headers,
+        data: res.data,
+      };
+
+      setPostResult(fortmatResponse(result));
+      console.log(postResult);
+      alert("Consulta agendada!")
+=======
+      toast("Consulta marcada com sucesso", {
+        type: "success",
+        autoClose: 2000,
+        transition: Zoom,
+      });
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
+    } catch (error) {
+      toast.error("Erro " + error.response?.data || error, {
+        autoClose: 2000,
+        transition: Zoom,
+      });
+    }
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    postConsulta(data);
+<<<<<<< HEAD
+    //Nesse handlesubmit você deverá usar o preventDefault,
+    //obter os dados do formulário e enviá-los no corpo da requisição
+    //para a rota da api que marca a consulta
+    //lembre-se que essa rota precisa de um Bearer Token para funcionar.
+    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+=======
+>>>>>>> 0e432248d745ee6a88cac0303bd92b52db4614a5
+  };
+
+  const { contextIsLight } = useContext(NavBarContext);
+
+  return (
+    <>
+      <div
+        className={`text-center container ${
+          contextIsLight ? styles.card : styles.cardDark
+        }`}
+      >
+        <form onSubmit={handleSubmit}>
+          <div className={`row ${styles.rowSpacing}`}>
+            <div className="col-sm-12 col-lg-6">
+              <label
+                htmlFor="dentist"
+                className={
+                  contextIsLight ? styles.formLabel : styles.formLabelDark
+                }
+              >
+                Dentista
+              </label>
+              <select className="form-select" name="dentist" id="dentist">
+                {dentista.map((dentista) => (
+                  <option key={dentista.matricula} value={dentista.matricula}>
+                    {dentista.nome} {dentista.sobrenome}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-sm-12 col-lg-6">
+              <label
+                htmlFor="patient"
+                className={
+                  contextIsLight ? styles.formLabel : styles.formLabelDark
+                }
+              >
+                Patiente
+              </label>
+              <select className="form-select" name="patient" id="patient">
+                {paciente?.map((paciente) => (
+                  <option key={paciente.matricula} value={paciente.matricula}>
+                    {paciente.nome} {paciente.sobrenome}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className={`row ${styles.rowSpacing}`}>
+            <div className="col-12">
+              <label
+                htmlFor="appointmentDate"
+                className={
+                  contextIsLight ? styles.formLabel : styles.formLabelDark
+                }
+              >
+                Data
+              </label>
+              <input
+                className="form-control"
+                id="appointmentDate"
+                name="appointmentDate"
+                type="datetime-local"
+              />
+            </div>
+          </div>
+          <div className={`row ${styles.rowSpacing}`}>
+            <button
+              className={
+                contextIsLight
+                  ? `btn btn-light ${styles.button}`
+                  : `btn btn-dark ${styles.button}`
+              }
+              type="submit"
+            >
+              Schedule
+            </button>
+          </div>
+        </form>
+        <ToastContainer />
+      </div>
+    </>
+  );
+};
+
+export default ScheduleForm;
