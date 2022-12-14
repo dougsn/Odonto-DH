@@ -4,7 +4,11 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import { server } from './mocks/server.js'
+=======
+//import { server } from './mocks/server.js'
+>>>>>>> fbc5d96061a47cbc84882ba3b15dbcb8ab2b9e9f
 =======
 //import { server } from './mocks/server.js'
 >>>>>>> fbc5d96061a47cbc84882ba3b15dbcb8ab2b9e9f
