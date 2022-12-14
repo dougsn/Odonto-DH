@@ -5,7 +5,6 @@ import axios from 'axios';
 import Card from '.';
 import App from '.';
 
-
 beforeEach(() => {
     jest.mock(axios);
 });
