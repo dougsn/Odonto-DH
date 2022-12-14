@@ -36,7 +36,6 @@ const LoginForm = () => {
       fillUsetDataState({
         token: response.data.token,
       });
-      console.log(response);
       setIsLogado(true);
 
       setTimeout(() => {

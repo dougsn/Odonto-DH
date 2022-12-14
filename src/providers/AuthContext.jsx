@@ -93,7 +93,6 @@ const AuthProvider = ({ children }) => {
       }}
     >
       {children}
-      <ToastContainer />
     </AuthContext.Provider>
   );
 };

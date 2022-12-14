@@ -3,7 +3,7 @@ import styles from "./Navbar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { NavBarContext } from "../contexts/NavBarContext";
 import { AuthContext } from "../../providers/AuthContext";
-import { ToastContainer, toast, Zoom, Slide } from "react-toastify";
+import { ToastContainer, toast, Zoom} from "react-toastify";
 
 const Navbar = () => {
   const { contextIsLight, setContextIsLight } = useContext(NavBarContext);
@@ -24,7 +24,7 @@ const Navbar = () => {
       }, 2000);
       toast("Logout efetuado com sucesso !", {
         type: "success",
-        transition: Slide,
+        transition: Zoom,
         autoClose: 1000,
       });
     } catch (error) {
@@ -105,7 +105,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <ToastContainer />
+      <ToastContainer/>
     </header>
   );
 };
