@@ -26,4 +26,4 @@ Cada dentista deve conter name e username, juntamente com um link que permite na
 
 [Fazer o darkMode e troca o icone quando for clicado ] OK
 
-[Realizar os testes ] ** Pendente **
+[Realizar os testes ] OK

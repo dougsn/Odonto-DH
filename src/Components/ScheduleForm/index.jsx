@@ -3,21 +3,11 @@ import { AuthContext } from "../../providers/AuthContext";
 import styles from "./ScheduleForm.module.css";
 import { NavBarContext } from "../contexts/NavBarContext";
 import api from "../../services/api";
+import { ToastContainer, toast, Zoom } from "react-toastify";
 
 const ScheduleForm = () => {
-  const { paciente, dentista, consulta, setConsulta } = useContext(AuthContext);
-  const [agenda, setAgenda] = useState({
-    paciente,
-    dentista,
-    dataConsulta: "12-04-2022",
-  });
-
-  const { userData } = useContext(AuthContext);
-  //Estados para pegar as matriculas
-  const [dentist, setDentist] = useState([]);
-  const [pacient, setPacient] = useState([]);
-  const [birthdate, setBirthdate] = useState("");
-
+  const { paciente, dentista, userData } = useContext(AuthContext);
+  
   // Estados para preencher com a informações das matriculas
   const [postResult, setPostResult] = useState(null);
 
@@ -26,8 +16,6 @@ const ScheduleForm = () => {
   };
 
   async function postConsulta(data) {
-    console.log(data);
-
     const postData = JSON.stringify({
       paciente: {
         matricula: data.patient,
@@ -56,10 +44,18 @@ const ScheduleForm = () => {
       };
 
       setPostResult(fortmatResponse(result));
-      console.log(postResult);
-      alert("Consulta agendada!")
+
+      toast("Consulta marcada com sucesso", {
+        type: "success",
+        autoClose: 2000,
+        transition: Zoom,
+      });
+
     } catch (error) {
-      alert("Erro " + error.response?.data || error);
+      toast.error("Erro " + error.response?.data || error, {
+        autoClose: 2000,
+        transition: Zoom,
+      });
     }
   }
 
@@ -95,15 +91,7 @@ const ScheduleForm = () => {
               >
                 Dentista
               </label>
-              <select
-                value={dentist.matricula}
-                onChange={(e) => {
-                  setDentist(e.target.value);
-                }}
-                className="form-select"
-                name="dentist"
-                id="dentist"
-              >
+              <select className="form-select" name="dentist" id="dentist">
                 {dentista.map((dentista) => (
                   <option key={dentista.matricula} value={dentista.matricula}>
                     {dentista.nome} {dentista.sobrenome}
@@ -120,13 +108,7 @@ const ScheduleForm = () => {
               >
                 Patiente
               </label>
-              <select
-                value={pacient.matricula}
-                onChange={(event) => setPacient(event.target.value)}
-                className="form-select"
-                name="patient"
-                id="patient"
-              >
+              <select className="form-select" name="patient" id="patient">
                 {paciente?.map((paciente) => (
                   <option key={paciente.matricula} value={paciente.matricula}>
                     {paciente.nome} {paciente.sobrenome}
@@ -146,8 +128,6 @@ const ScheduleForm = () => {
                 Data
               </label>
               <input
-                value={birthdate}
-                onChange={(event) => setBirthdate(event.target.value)}
                 className="form-control"
                 id="appointmentDate"
                 name="appointmentDate"
@@ -168,6 +148,7 @@ const ScheduleForm = () => {
             </button>
           </div>
         </form>
+        <ToastContainer />
       </div>
     </>
   );

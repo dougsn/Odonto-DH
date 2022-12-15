@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <div className="card-grid container">
+      <div className="card-grid container" data-testId="hometest">
         {dentista.map((dentista) => (
           <Link key={dentista.matricula} to={`/dentist/${dentista.matricula}`}>
             <Card
@@ -18,6 +18,7 @@ const Home = () => {
               nome={dentista.nome}
               sobrenome={dentista.sobrenome}
               usuario={dentista.usuario.username}
+              data-testId="dentista-card"
             />
           </Link>
         ))}

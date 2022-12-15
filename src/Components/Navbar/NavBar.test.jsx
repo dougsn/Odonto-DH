@@ -24,12 +24,3 @@ describe("<App/>", () => {
     expect(tema).toHaveClass("btn btn-light");
   });
 });
-
-  /*test("verificar se a quantidade de dentistas esta aparecendo corretamente", () => {
-    render(<App />);
-
-    const nomes = screen.getAllByRole("heading", { level: 2 });
-
-    expect(nomes.length).toBe(3);
-  });
-});*/

@@ -1,31 +1,22 @@
 import { fireEvent, getByRole, getByText, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
-
-import Card from '.';
-import App from '.';
-
-beforeEach(() => {
-    jest.mock(axios);
-});
+import NavBarProvider from '../../Components/contexts/NavBarContext';
+import Navbar from "../../Components/Navbar";
+import Home from '.';
 
 describe ('<Card />', () => { 
 
-
-
-    test("Testar se o card de Dentista está aparecendo corretamente na tela de início", ()=>{
-
+    test("Testar se o card de Dentista está aparecendo corretamente na tela de início", async ()=>{
+        
         render(
             <BrowserRouter>
-                <Card
-                    nome="Admin"
-                    sobrenome="Admin"
-                />
+                <Home  />
             </BrowserRouter>)
+            screen.debug;
 
-        const nome = getByRole("heading", { name: "Admin Admin"});
-
-        expect(nome).toBeInTheDocument();
+            
+         const dentista = screen.getByRole("heading", { level: 2 });
+         expect(dentista.map).toBe(undefined);
 
     });
 
@@ -33,42 +24,15 @@ describe ('<Card />', () => {
 
         render(
             <BrowserRouter>
-                <Navbar />
+                <NavBarProvider>
+                    <Navbar />
+                </NavBarProvider>
             </BrowserRouter>)
 
-        const logout = getByText("Lougout");
+        const logout = screen.getByText("Login");
 
         expect(logout).toBeInTheDocument();
 
     });
-
-})
-
-describe ('<App />', () => { 
-
-
-    test("Testar troca de temas", ()=>{
-
-        render(
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        )
-
-        const light = screen.findAllByText('light');
-
-        expect(light).toBeInTheDocument();
-
-        const button = screen.getByRole ('button', { name: '🌙'});
-
-        fireEvent.click(button);
-
-        const dark = screen.findAllByText('dark');
-
-        expect(dark).toBeInTheDocument();
-
-    });
-
-
 
 })
