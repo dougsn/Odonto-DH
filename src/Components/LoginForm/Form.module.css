@@ -12,6 +12,7 @@
   gap: 1rem;
   padding: 1rem;
   margin-top: 2rem;
+  height: calc(100vh -86px);
   border: 1px solid lightslategrey;
   border-radius: 10px;
   background-color: #31313196;
